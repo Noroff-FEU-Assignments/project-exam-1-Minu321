@@ -1,0 +1,38 @@
+.carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+  }
+
+  .carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .carousel-card {
+    flex: 0 0 33.33%; /* Display three cards at a time */
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .prev {
+    left: 0;
+    padding: 10px;
+  }
+
+  .next {
+    right: 0;
+     padding: 10px;
+  }

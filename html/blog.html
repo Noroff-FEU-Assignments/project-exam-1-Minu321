@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://kit.fontawesome.com/3d84ee808b.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A blog about design and development with frontend development focus"
+    />
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 3681180, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <title>Design & Development Insights</title>
+  </head>
+  <body class="body1">
+    <header>
+      <a href="/index.html"
+        ><h1 class="pageTitle">Design & Develpment Insights</h1></a
+      >
+      <input type="checkbox" id="menu-checkbox" />
+      <label for="menu-checkbox" class="hamburger"
+        ><i class="fas fa-bars"></i
+      ></label>
+      <nav>
+        <ul>
+          <li><a href="/index.html" class="unactive">Home</a></li>
+          <li><a href="/html/blog.html" class="active">Blog</a></li>
+          <li><a href="/html/about.html" class="unactive">About</a></li>
+          <li><a href="/html/contact.html" class="unactive">Contact</a></li>
+          <li><a href="/html/post.html" class="unactive">Something</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h2>Posts</h2>
+      <form
+        action="#search-result"
+        id="searchbarshop"
+        method="get"
+        class="searchbar"
+      >
+        <label for="search"></label>
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <input type="search" id="search" name="q" placeholder="search" />
+      </form>
+      <form action="get">
+        <fieldset>
+          <legend>Sort</legend>
+          <select name="Sort">
+            <option value="alphabetical">Alphabetical</option>
+            <option value="price-low">Latest</option>
+            <option value="price-high">Earliest</option>
+          </select>
+        </fieldset>
+      </form>
+      <div id="loading" class="loading">Loading products...</div>
+      <div id="error-container" class="error-container">
+        <p id="error-message" class="error-message"></p>
+      </div>
+      <div class="blogcontainer"></div>
+    </main>
+
+    <footer>
+      <ul class="footerul">
+        <li class="footericon"><i class="fa-brands fa-snapchat"></i></li>
+        <li class="footericon"><i class="fa-brands fa-twitter"></i></li>
+        <li class="footericon"><i class="fa-brands fa-instagram"></i></li>
+        <li class="footericon"><i class="fa-brands fa-steam"></i></li>
+      </ul>
+    </footer>
+    <script type="module" src="/js/fetch.js"></script>
+    <script type="module" src="/js/index.js"></script>
+  </body>
+</html>
