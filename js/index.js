@@ -1,7 +1,7 @@
 console.log(8);
 
+let blogData;
 let visiblePosts = 10;
-const postsPerPage = 10; // Adjust as needed
 
 function showLoadingIndicator() {
   const loadingElement = document.getElementById("loading");
@@ -27,11 +27,13 @@ function hideLoadingIndicator() {
 
 async function fetchBlogPosts() {
   try {
-    const response = await fetch("https://mina-roseth.no/wp-json/wp/v2/posts");
+    const response = await fetch(
+      "https://mina-roseth.no/wp-json/wp/v2/posts?per_page=16"
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    const blogData = await response.json();
+    blogData = await response.json();
     return blogData;
   } catch (error) {
     throw new Error(`Error fetching blog posts: ${error.message}`);
@@ -43,18 +45,27 @@ function createBlogPostElement(blog) {
   blogItem.classList.add("blogitem");
 
   const link = document.createElement("a");
-  link.href = `/product.html?id=${blog.id}`;
+  link.href = `/html/post.html?id=${blog.id}`;
 
   const image = document.createElement("img");
   image.src = blog.better_featured_image.source_url;
-  image.alt = `Image for the blog post: ${blog.title.rendered}`;
+  image.alt = blog.better_featured_image.alt_text;
   image.classList.add("blogimage");
 
+  // Add an event listener to the image to prevent the default behavior
+  image.addEventListener("click", (event) => {
+    event.preventDefault();
+  });
+
   const title = document.createElement("h2");
-  title.textContent = blog.title.rendered;
+  const titleLink = document.createElement("a");
+  titleLink.href = `/html/post.html?id=${blog.id}`;
+  titleLink.textContent = blog.title.rendered;
+  title.appendChild(titleLink);
 
   const description = document.createElement("p");
-  description.textContent = blog.excerpt.rendered.replace(/<\/?p>/g, "");
+  description.classList.add("blog-description");
+  description.innerHTML = blog.excerpt.rendered;
 
   link.appendChild(image);
   blogItem.appendChild(link);
@@ -64,79 +75,67 @@ function createBlogPostElement(blog) {
   return blogItem;
 }
 
-function displayErrorMessage(message) {
-  const errorContainer = document.getElementById("error-container");
-  const errorMessage = document.getElementById("error-message");
+function displayPosts() {
+  showLoadingIndicator();
 
-  errorMessage.textContent = message;
-  if (errorContainer) {
-    errorContainer.style.display = "block";
-  }
-}
-
-function hideErrorMessage() {
-  const errorContainer = document.getElementById("error-container");
-  if (errorContainer) {
-    errorContainer.style.display = "none";
-  }
-}
-
-function showMorePosts(blogData, blogContainer) {
-  showLoadingIndicator(); // Show loading indicator when loading more posts
-
-  for (
-    let i = visiblePosts;
-    i < visiblePosts + postsPerPage && i < blogData.length;
-    i++
-  ) {
-    const blogItem = createBlogPostElement(blogData[i]);
-    blogContainer.appendChild(blogItem);
-  }
-  visiblePosts += postsPerPage;
-
-  if (visiblePosts >= blogData.length) {
-    // If all posts are displayed, hide the "Show More" button
-    const showMoreButton = document.getElementById("showMoreButton");
-    if (showMoreButton) {
-      showMoreButton.style.display = "none";
-    }
-  }
-
-  hideLoadingIndicator(); // Hide loading indicator after loading more posts
-}
-
-fetchBlogPosts()
-  .then((blogData) => {
-    const blogContainer = document.querySelector(".blogcontainer");
-
-    // Wrap all the blog items in a container
+  const blogContainer = document.querySelector(".blogcontainer");
+  if (blogContainer) {
     const postContainer = document.createElement("div");
     postContainer.classList.add("blogcontainer");
 
-    hideLoadingIndicator();
-
+    // Display only the first 10 posts initially
     for (let i = 0; i < visiblePosts && i < blogData.length; i++) {
       const blogItem = createBlogPostElement(blogData[i]);
       postContainer.appendChild(blogItem);
     }
 
-    // Append the post container to the blog container
     blogContainer.appendChild(postContainer);
 
     if (visiblePosts < blogData.length) {
-      // If there are more posts, display the "Show More" button
       const showMoreButton = document.createElement("button");
-      showMoreButton.textContent = "Show More";
+      showMoreButton.textContent = "View More";
       showMoreButton.id = "showMoreButton";
-      showMoreButton.addEventListener("click", () =>
-        showMorePosts(blogData, blogContainer)
-      );
+      showMoreButton.addEventListener("click", showMorePosts);
       blogContainer.appendChild(showMoreButton);
     }
-  })
-  .catch((error) => {
-    console.error("Error in fetchBlogPosts:", error);
-    displayErrorMessage(
-      "An error occurred while fetching blog posts. Please try again later."
-    );
-  });
+  }
+
+  hideLoadingIndicator();
+}
+
+function showMorePosts() {
+  showLoadingIndicator();
+
+  const blogContainer = document.querySelector(".blogcontainer");
+  if (blogContainer) {
+    const postContainer = blogContainer.querySelector(".blogcontainer");
+
+    // Display all remaining posts when "View More" is clicked
+    for (let i = visiblePosts; i < blogData.length; i++) {
+      const blogItem = createBlogPostElement(blogData[i]);
+      postContainer.appendChild(blogItem);
+    }
+
+    visiblePosts = blogData.length; // Update visiblePosts to the total number of posts
+
+    const showMoreButton = document.getElementById("showMoreButton");
+    if (showMoreButton) {
+      showMoreButton.style.display = "none"; // Hide the button when all posts are displayed
+    }
+  }
+
+  hideLoadingIndicator();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchBlogPosts()
+    .then(() => {
+      displayPosts();
+    })
+    .catch((error) => {
+      console.error("Error in fetchBlogPosts:", error);
+      displayErrorMessage(
+        "An error occurred while fetching blog posts. Please try again later."
+      );
+    });
+});

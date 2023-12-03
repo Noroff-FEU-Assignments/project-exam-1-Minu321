@@ -29,8 +29,57 @@
     <link href="/css/styles.css" rel="stylesheet" />
     <title>Design & Development Insights</title>
   </head>
-  <header></header>
-  <body>
-    <footer></footer>
+  <body class="body1">
+    <header>
+      <a href="/index.html"
+        ><h1 class="pageTitle">Design & Develpment Insights</h1></a
+      >
+      <input type="checkbox" id="menu-checkbox" />
+      <label for="menu-checkbox" class="hamburger"
+        ><i class="fas fa-bars"></i
+      ></label>
+      <nav>
+        <ul>
+          <li><a href="/index.html" class="unactive">Home</a></li>
+          <li><a href="/html/blog.html" class="active">Blog</a></li>
+          <li><a href="/html/about.html" class="unactive">About</a></li>
+          <li><a href="/html/contact.html" class="unactive">Contact</a></li>
+          <li><a href="/html/post.html" class="unactive">Something</a></li>
+        </ul>
+      </nav>
+      </nav>
+    </header>
+    <main class="main1">
+      <div id="loading" class="loading">Loading product...</div>
+      <div id="error-container" class="error-container">
+        <p id="error-message" class="error-message"></p>
+      </div>
+      
+      <div class="shopimagecontainer">
+        <img src="" alt="" class="shopimagebig" />
+      </div>
+      <h1 class="title"></h1>
+      <div id="productInfo">
+        <p id="description"></p>
+        <p id="release"></p>
+        <p id="genre"></p>
+        <p id="age"></p>
+      </div>
+      <p id="price"></p>
+      <div class="productnav">
+        <a href="/html/blog.html" class="backToBlog"
+          ><i class="fa-solid fa-arrow-left"></i> Back to overview</a
+        >
+      </div>
+    </main>
+    <footer>
+      <ul class="footerul">
+        <li class="footericon"><i class="fa-brands fa-snapchat"></i></li>
+        <li class="footericon"><i class="fa-brands fa-twitter"></i></li>
+        <li class="footericon"><i class="fa-brands fa-instagram"></i></li>
+        <li class="footericon"><i class="fa-brands fa-steam"></i></li>
+      </ul>
+    </footer>
+    <script type="module" src="/js/post.js"></script>
   </body>
 </html>
