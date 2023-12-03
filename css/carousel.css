@@ -11,17 +11,18 @@
   }
 
   .carousel-card {
-    flex: 0 0 33.33%; /* Display three cards at a time */
+    flex: 0 0 33.33%;
     box-sizing: border-box;
     padding: 20px;
     text-align: center;
   }
 
   .arrow {
+    color: rgb(14, 215, 101);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 24px;
+    font-size: 40px;
     background: none;
     border: none;
     cursor: pointer;

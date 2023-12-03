@@ -31,10 +31,9 @@ function displayBlogPost(blogPost) {
   releaseElement.textContent = `Date: ${blogPost.date}`;
   genreElement.textContent = `Tags: ${blogPost.tags
     .map((tag) => tag.name)
-    .join(", ")}`;
-  ageElement.textContent = ""; // Adjust this according to your specific data structure
+    .join(" ")}`;
+  ageElement.textContent = "Frontend";
 
-  // Update the page title with the blog post title
   document.title = blogPost.title.rendered;
 }
 

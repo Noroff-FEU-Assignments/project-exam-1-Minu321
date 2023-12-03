@@ -44,37 +44,29 @@ function createBlogPostElement(blog) {
   const blogItem = document.createElement("div");
   blogItem.classList.add("blogitem");
 
-  const link = document.createElement("a");
-  link.href = `/html/post.html?id=${blog.id}`;
+  const imageLink = document.createElement("a");
+  imageLink.href = `/html/post.html?id=${blog.id}`;
 
   const image = document.createElement("img");
   image.src = blog.better_featured_image.source_url;
   image.alt = blog.better_featured_image.alt_text;
   image.classList.add("blogimage");
 
-  // Add an event listener to the image to prevent the default behavior
-  image.addEventListener("click", (event) => {
-    event.preventDefault();
-  });
-
-  const title = document.createElement("h2");
-  const titleLink = document.createElement("a");
-  titleLink.href = `/html/post.html?id=${blog.id}`;
-  titleLink.textContent = blog.title.rendered;
-  title.appendChild(titleLink);
+  const title = document.createElement("h3");
+  title.textContent = blog.title.rendered;
+  title.classList.add("blog-post-title");
 
   const description = document.createElement("p");
   description.classList.add("blog-description");
   description.innerHTML = blog.excerpt.rendered;
 
-  link.appendChild(image);
-  blogItem.appendChild(link);
+  imageLink.appendChild(image);
+  blogItem.appendChild(imageLink);
   blogItem.appendChild(title);
   blogItem.appendChild(description);
 
   return blogItem;
 }
-
 function displayPosts() {
   showLoadingIndicator();
 
