@@ -1,6 +1,6 @@
 # Design & Development Insights
 
-![image](DdiShowcase.png)
+![image](DdiShowcase.jpg)
 
 Through this project, I showcase the ability to fetch blog posts from an API and implement a functional contact form with validation. The website aims to provide insightful articles on various design and development topics while offering users the opportunity to engage through a seamless contact form.
 
